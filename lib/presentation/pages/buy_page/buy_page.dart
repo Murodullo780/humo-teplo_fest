@@ -6,7 +6,6 @@ import 'package:teplo_fest_humo/core/util.dart';
 import 'package:teplo_fest_humo/data/models/priz_model.dart';
 import 'package:teplo_fest_humo/presentation/pages/buy_page/widgets/buy_item.dart';
 import 'package:teplo_fest_humo/presentation/pages/cart_page/cart_page.dart';
-import 'package:teplo_fest_humo/presentation/widget/coint_widget.dart';
 
 class BuyPage extends StatefulWidget {
   const BuyPage({super.key});
@@ -16,8 +15,8 @@ class BuyPage extends StatefulWidget {
 }
 
 class _BuyPageState extends State<BuyPage> {
-  void addSum(PrizModel price) {
-    itemsInCart.add(price);
+  void addSum(int index) {
+    items[index] = items[index].copyWith(count: items[index].count + 1);
     sum = 0;
     calcSum();
   }
@@ -25,9 +24,10 @@ class _BuyPageState extends State<BuyPage> {
   int sum = 0;
 
   void calcSum() {
-    for (int i = 0; i < itemsInCart.length; i++) {
-      print(itemsInCart[i].price);
-      sum += itemsInCart[i].price;
+    sum = 0;
+    for (int i = 0; i < items.length; i++) {
+      if (items[i].count < 1) continue;
+      sum += items[i].price * items[i].count;
     }
     setState(() {});
   }
@@ -65,12 +65,12 @@ class _BuyPageState extends State<BuyPage> {
             price: items[index].price,
             image: 'assets/images/yostiq.jpg',
             onTap: (price) {
-              addSum(items[index]);
+              addSum(index);
             },
           );
         },
       ),
-      bottomNavigationBar: itemsInCart.isNotEmpty
+      bottomNavigationBar: items.where((element) => element.count > 0).isNotEmpty
           ? InkWell(
               onTap: () async {
                 await Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()));
@@ -78,27 +78,31 @@ class _BuyPageState extends State<BuyPage> {
               },
               child: Container(
                 height: size.height * 0.1,
-                color: ColorConstants.primaryColor.withAlpha(100),
+                color: ColorConstants.primaryColor,
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
                 child: Row(
-                  spacing: 8,
+                  spacing: 18,
                   children: [
-                    Text('Товары в корзине:',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize / 2)),
-                    const Spacer(),
-                    CointWidget(
-                      count: ((sum / 20000)).toInt(),
-                      size: size.height * 0.03,
-                      space: size.height * 0.03,
+                    Text('Перейти в корзину',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold, fontSize: textSize / 2, color: Colors.white)),
+                    Icon(
+                      Icons.arrow_forward,
+                      size: textSize / 2,
+                      color: Colors.white,
                     ),
+                    const Spacer(),
+                    // CointWidget(
+                    //   count: ((sum / 20000)).toInt(),
+                    //   size: size.height * 0.03,
+                    //   space: size.height * 0.03,
+                    // ),
                     Text(
-                      'Сумма: ${NumericServices.formatNumber(sum)}',
+                      'Итого: ${NumericServices.formatNumber(sum)}',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
-                            fontSize: textSize / 2,
+                            color: Colors.white,
+                            fontSize: textSize / 1.8,
                           ),
                     ),
                   ],

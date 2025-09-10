@@ -15,7 +15,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  List<PrizModel> itemsInCarts = calculatedItems();
+  List<PrizModel> itemsInCarts = items.where((element) => element.count > 0).toList();
 
   int sum = 0;
 
@@ -73,20 +73,9 @@ class _CartPageState extends State<CartPage> {
                 onChangePrice: (isPlus) {
                   setState(() {
                     if (isPlus) {
-                      // itemsInCart ga yangi element qo‘shish
-                      itemsInCart.add(PrizModel(
-                        name: itemsInCarts[index].name,
-                        price: itemsInCarts[index].price,
-                        image: itemsInCarts[index].image,
-                        count: 1,
-                      ));
+                      items[index] = items[index].copyWith(count: items[index].count + 1);
                     } else {
-                      // itemsInCart dan bitta elementni o‘chirish
-                      int foundIndex = itemsInCart.indexWhere(
-                              (item) => item.name == itemsInCarts[index].name);
-                      if (foundIndex != -1) {
-                        itemsInCart.removeAt(foundIndex);
-                      }
+
                     }
                     // itemsInCarts ni qayta generatsiya qilish
                     itemsInCarts = calculatedItems();

@@ -16,13 +16,12 @@ class ReceiptPage extends StatefulWidget {
 
 class _ReceiptPageState extends State<ReceiptPage> {
   ValueNotifier<int> backNotifier = ValueNotifier(10);
-  List<PrizModel> prizList = calculatedItems();
+  List<PrizModel> prizList = items.where((element) => element.count > 0).toList();
   double total = 0;
   Timer? _timer;
 
   void _pop() {
-    itemsInCart.clear();
-    calculatedItems().clear();
+    items = itemsClone;
     setState(() {});
     Navigator.pop(context);
     Navigator.pop(context);
@@ -44,11 +43,9 @@ class _ReceiptPageState extends State<ReceiptPage> {
 
   @override
   void initState() {
-    !kDebugMode
-        ? _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-            _back();
-          })
-        : null;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _back();
+    });
     total = prizList.fold(0, (previousValue, element) => previousValue + element.price * element.count);
     super.initState();
   }
