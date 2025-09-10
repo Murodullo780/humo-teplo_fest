@@ -13,9 +13,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Humo / Teplo Fest',
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/splash_page': (context) => const SplashPage(),
+        '/buy_page': (context) => const BuyPage(),
+      },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff213774)),
         useMaterial3: true,
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(
+            fontFamily: 'Lato',
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
       home: const SplashPage(),
     );

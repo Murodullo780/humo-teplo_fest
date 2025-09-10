@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:teplo_fest_humo/core/const/color_constants.dart';
+import 'package:teplo_fest_humo/core/util.dart';
+import 'package:teplo_fest_humo/presentation/pages/buy_page/buy_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -13,6 +17,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   @override
   void initState() {
+    // full screen
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     super.initState();
     _controller = AnimationController(
       duration: const Duration(seconds: 10),
@@ -52,6 +58,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size.height;
+    textSize = size * 0.025;
+    borderRadius = size * 0.015;
     return Scaffold(
       body: AnimatedBuilder(
         animation: _controller,
@@ -62,8 +71,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: const [
-                  Color(0xff1C3574),
-                  Color(0xff1d4393),
+                  Color(0xff182c60),
+                  Color(0xff18429a),
                 ],
                 transform: GradientRotation(_controller.value * 2 * 3.14159),
               ),
@@ -113,7 +122,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                         _buildSvgContainer(0.26, 'assets/svg/Frame 2.svg'),
                       ],
                     ),
-                    _buildSvgContainer(0.66, 'assets/svg/g16.svg', color: const Color(0xffE3C269)),
+                    _buildSvgContainer(0.66, 'assets/svg/g16.svg', color: ColorConstants.primaryColor),
                     Row(
                       children: [
                         _buildSvgContainer(0.26, 'assets/svg/Frame 2.svg', quarterTurns: 2),
@@ -123,6 +132,36 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                 ),
               ),
             ),
+            // bottom button
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.27,
+                child: Center(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.primaryColor,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const BuyPage(),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: size * 0.01, horizontal: MediaQuery.sizeOf(context).width * 0.13),
+                      child: Text(
+                        'Продолжить',
+                        style: TextStyle(fontSize: size * 0.04, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
