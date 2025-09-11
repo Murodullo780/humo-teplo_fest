@@ -152,10 +152,10 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: size * 0.01, horizontal: MediaQuery.sizeOf(context).width * 0.13),
+                          vertical: size * 0.014, horizontal: MediaQuery.sizeOf(context).width * 0.13),
                       child: Text(
                         'Продолжить',
-                        style: TextStyle(fontSize: size * 0.04, color: Colors.white),
+                        style: TextStyle(fontSize: size * 0.04, color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),

@@ -273,7 +273,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
         onTap: () => _pop(),
         child: Container(
           height: size.height * 0.1,
-          color: ColorConstants.primaryColor.withAlpha(100),
+          color: ColorConstants.primaryColor,
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
           child: Center(
             child: ValueListenableBuilder(
@@ -283,7 +283,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize));
+                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize, color: Colors.white));
                 }),
           ),
         ),
