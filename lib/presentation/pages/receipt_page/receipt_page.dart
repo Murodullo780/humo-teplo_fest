@@ -8,24 +8,136 @@ import 'package:teplo_fest_humo/core/util.dart';
 import 'package:teplo_fest_humo/data/models/priz_model.dart';
 
 class ReceiptPage extends StatefulWidget {
-  const ReceiptPage({super.key});
+  final bool? once;
+
+  const ReceiptPage({super.key, this.once});
 
   @override
   State<ReceiptPage> createState() => _ReceiptPageState();
 }
 
 class _ReceiptPageState extends State<ReceiptPage> {
+
+  List<PrizModel> itemsClone = [
+    PrizModel(name: "Soft Yostiq", price: 25000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Lux Yostiq", price: 35000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Comfort Yostiq", price: 20000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Eco Yostiq", price: 30000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Premium Yostiq", price: 40000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Silk Yostiq", price: 45000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cotton Yostiq", price: 28000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Memory Foam Yostiq", price: 50000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Classic Yostiq", price: 22000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Ortho Yostiq", price: 42000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Travel Yostiq", price: 15000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cool Gel Yostiq", price: 48000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Bamboo Yostiq", price: 32000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Anti-Allergy Yostiq", price: 38000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Kids Yostiq", price: 18000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Firm Yostiq", price: 34000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Soft Touch Yostiq", price: 26000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Luxury Yostiq", price: 55000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Organic Yostiq", price: 36000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Ergo Yostiq", price: 39000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Plush Yostiq", price: 27000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Hypoallergenic Yostiq", price: 41000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Neck Support Yostiq", price: 43000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cooling Yostiq", price: 46000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Standard Yostiq", price: 21000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Deluxe Yostiq", price: 47000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Microfiber Yostiq", price: 29000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Latex Yostiq", price: 52000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Feather Yostiq", price: 31000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Down Yostiq", price: 49000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Firm Support Yostiq", price: 33000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Soft Comfort Yostiq", price: 24000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cool Breeze Yostiq", price: 44000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Natural Yostiq", price: 37000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Orthopedic Yostiq", price: 45000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Mini Yostiq", price: 17000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Lux Comfort Yostiq", price: 51000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Eco-Friendly Yostiq", price: 35000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Soft Plush Yostiq", price: 23000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Travel Comfort Yostiq", price: 19000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Premium Comfort Yostiq", price: 53000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Silk Touch Yostiq", price: 40000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Anti-Slip Yostiq", price: 32000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cool Touch Yostiq", price: 47000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Bamboo Comfort Yostiq", price: 34000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Firm Comfort Yostiq", price: 36000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Lux Plush Yostiq", price: 48000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Organic Comfort Yostiq", price: 39000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Memory Support Yostiq", price: 50000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Soft Silk Yostiq", price: 28000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cool Comfort Yostiq", price: 46000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Standard Comfort Yostiq", price: 22000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Deluxe Comfort Yostiq", price: 49000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Microfiber Comfort Yostiq", price: 30000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Latex Comfort Yostiq", price: 51000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Feather Comfort Yostiq", price: 33000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Down Comfort Yostiq", price: 47000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Firm Support Comfort Yostiq", price: 35000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Soft Comfort Touch Yostiq", price: 26000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cool Breeze Comfort Yostiq", price: 45000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Natural Comfort Yostiq", price: 38000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Orthopedic Comfort Yostiq", price: 46000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Mini Comfort Yostiq", price: 18000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Lux Comfort Touch Yostiq", price: 52000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Eco-Friendly Comfort Yostiq", price: 36000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Soft Plush Comfort Yostiq", price: 24000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Travel Comfort Touch Yostiq", price: 20000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Premium Comfort Touch Yostiq", price: 54000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Silk Touch Comfort Yostiq", price: 41000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Anti-Slip Comfort Yostiq", price: 33000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cool Touch Comfort Yostiq", price: 48000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Bamboo Comfort Touch Yostiq", price: 35000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Firm Comfort Touch Yostiq", price: 37000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Lux Plush Comfort Yostiq", price: 49000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Organic Comfort Touch Yostiq", price: 40000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Memory Support Comfort Yostiq", price: 51000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Soft Silk Comfort Yostiq", price: 29000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cool Comfort Touch Yostiq", price: 47000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Standard Comfort Touch Yostiq", price: 23000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Deluxe Comfort Touch Yostiq", price: 50000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Microfiber Comfort Touch Yostiq", price: 31000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Latex Comfort Touch Yostiq", price: 52000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Feather Comfort Touch Yostiq", price: 34000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Down Comfort Touch Yostiq", price: 48000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Firm Support Comfort Touch Yostiq", price: 36000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Soft Comfort Touch Yostiq", price: 27000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Cool Breeze Comfort Touch Yostiq", price: 46000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Natural Comfort Touch Yostiq", price: 39000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Orthopedic Comfort Touch Yostiq", price: 47000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Mini Comfort Touch Yostiq", price: 19000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Lux Comfort Touch Yostiq", price: 53000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Eco-Friendly Comfort Touch Yostiq", price: 37000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Soft Plush Comfort Touch Yostiq", price: 25000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Travel Comfort Touch Yostiq", price: 21000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Premium Comfort Touch Yostiq", price: 55000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Silk Touch Comfort Yostiq", price: 42000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Anti-Slip Comfort Touch Yostiq", price: 34000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Cool Touch Comfort Yostiq", price: 49000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(name: "Bamboo Comfort Touch Yostiq", price: 36000, image: "assets/images/yostiq.jpg", count: 0),
+  ];
   ValueNotifier<int> backNotifier = ValueNotifier(10);
   List<PrizModel> prizList = items.where((element) => element.count > 0).toList();
   double total = 0;
   Timer? _timer;
 
   void _pop() {
+    items.clear();
     items = itemsClone;
     setState(() {});
     Navigator.pop(context);
     Navigator.pop(context);
-    Navigator.pop(context);
+    if (widget.once != true) Navigator.pop(context);
   }
 
   void _back() {

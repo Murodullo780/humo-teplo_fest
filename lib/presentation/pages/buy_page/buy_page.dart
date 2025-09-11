@@ -6,6 +6,7 @@ import 'package:teplo_fest_humo/core/util.dart';
 import 'package:teplo_fest_humo/data/models/priz_model.dart';
 import 'package:teplo_fest_humo/presentation/pages/buy_page/widgets/buy_item.dart';
 import 'package:teplo_fest_humo/presentation/pages/cart_page/cart_page.dart';
+import 'package:teplo_fest_humo/presentation/pages/receipt_page/receipt_page.dart';
 
 class BuyPage extends StatefulWidget {
   const BuyPage({super.key});
@@ -17,6 +18,12 @@ class BuyPage extends StatefulWidget {
 class _BuyPageState extends State<BuyPage> {
   void addSum(int index) {
     items[index] = items[index].copyWith(count: items[index].count + 1);
+    sum = 0;
+    calcSum();
+  }
+
+  void minSum(int index) {
+    items[index] = items[index].copyWith(count: items[index].count - 1);
     sum = 0;
     calcSum();
   }
@@ -34,6 +41,7 @@ class _BuyPageState extends State<BuyPage> {
 
   @override
   void initState() {
+    // items = itemsClone;
     calcSum();
     super.initState();
   }
@@ -64,6 +72,14 @@ class _BuyPageState extends State<BuyPage> {
             name: items[index].name,
             price: items[index].price,
             image: 'assets/images/yostiq.jpg',
+            count: items[index].count,
+            onChangePrice: (isPlus) {
+              if (isPlus) {
+                addSum(index);
+              } else {
+                minSum(index);
+              }
+            },
             onTap: (price) {
               addSum(index);
             },
@@ -73,37 +89,83 @@ class _BuyPageState extends State<BuyPage> {
       bottomNavigationBar: items.where((element) => element.count > 0).isNotEmpty
           ? InkWell(
               onTap: () async {
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()));
+                await Navigator.push(context, MaterialPageRoute(builder: (context) => const ReceiptPage(once: true)));
                 setState(() {});
               },
               child: Container(
                 height: size.height * 0.1,
                 color: ColorConstants.primaryColor,
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                padding: EdgeInsets.only(right: size.width * 0.02),
                 child: Row(
-                  spacing: 18,
                   children: [
-                    Text('Перейти в корзину',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold, fontSize: textSize / 2, color: Colors.white)),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: textSize / 2,
-                      color: Colors.white,
+                    InkWell(
+                      onTap: () async {
+                        await Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => const CartPage()));
+                        setState(() {});
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                        height: size.height * 0.1,
+                        color: Colors.red,
+                        child: Row(
+                          spacing: 18,
+                          children: [
+                            Text('Перейти в корзину',
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: textSize / 2,
+                                    color: Colors.white)),
+                            Icon(
+                              Icons.arrow_forward,
+                              size: textSize / 2,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    const Spacer(),
+                    Spacer(),
                     // CointWidget(
                     //   count: ((sum / 20000)).toInt(),
                     //   size: size.height * 0.03,
                     //   space: size.height * 0.03,
                     // ),
-                    Text(
-                      'Итого: ${NumericServices.formatNumber(sum)}',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: textSize / 1.8,
-                          ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          spacing: 18,
+                          children: [
+                            Text(
+                              'Перейти на чек',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: textSize / 1.8,
+                                  ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              size: textSize / 2,
+                              color: Colors.white,
+                            )
+                          ],
+                        ),
+                        Text(
+                          'Итого: ${NumericServices.formatNumber(sum)}',
+                          textAlign: TextAlign.right,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: textSize / 1.8,
+                              ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

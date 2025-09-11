@@ -4,7 +4,6 @@ import 'package:teplo_fest_humo/core/services/numeric_services.dart';
 import 'package:teplo_fest_humo/core/util.dart';
 import 'package:teplo_fest_humo/data/models/priz_model.dart';
 import 'package:teplo_fest_humo/presentation/pages/buy_page/widgets/buy_item.dart';
-import 'package:teplo_fest_humo/presentation/pages/cart_page/widgets/cart_item.dart';
 import 'package:teplo_fest_humo/presentation/pages/receipt_page/receipt_page.dart';
 
 class CartPage extends StatefulWidget {
@@ -16,14 +15,20 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   List<PrizModel> itemsInCarts = items.where((element) => element.count > 0).toList();
-
   int sum = 0;
 
   void calculateSum() {
     sum = 0;
     for (var item in itemsInCarts) {
-      sum += item.price * item.count; // Narxni count bilan ko‘paytiramiz
+      sum += item.price * item.count;
     }
+  }
+
+  void updateCart() {
+    setState(() {
+      itemsInCarts = items.where((element) => element.count > 0).toList();
+      calculateSum();
+    });
   }
 
   @override
@@ -64,26 +69,20 @@ class _CartPageState extends State<CartPage> {
             name: itemsInCarts[index].name,
             price: itemsInCarts[index].price,
             image: itemsInCarts[index].image,
+            count: itemsInCarts[index].count,
             onTap: (price) {},
-            onTrailing: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: CartItem(
-                price: itemsInCarts[index].price,
-                count: itemsInCarts[index].count,
-                onChangePrice: (isPlus) {
-                  setState(() {
-                    if (isPlus) {
-                      items[index] = items[index].copyWith(count: items[index].count + 1);
-                    } else {
-
-                    }
-                    // itemsInCarts ni qayta generatsiya qilish
-                    itemsInCarts = calculatedItems();
-                    calculateSum();
-                  });
-                },
-              ),
-            ),
+            onChangePrice: (isPlus) {
+              // Find the corresponding item in the global `items` list
+              final globalIndex = items.indexWhere((item) => item == itemsInCarts[index]);
+              if (globalIndex != -1) {
+                if (isPlus) {
+                  items[globalIndex] = items[globalIndex].copyWith(count: items[globalIndex].count + 1);
+                } else if (items[globalIndex].count > 0) {
+                  items[globalIndex] = items[globalIndex].copyWith(count: items[globalIndex].count - 1);
+                }
+                updateCart(); // Update itemsInCarts and recalculate sum
+              }
+            },
           );
         },
       )
