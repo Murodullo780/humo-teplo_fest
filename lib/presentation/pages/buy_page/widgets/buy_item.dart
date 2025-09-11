@@ -80,12 +80,13 @@ class BuyItem extends StatelessWidget {
                             .titleMedium
                             ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize)),
                   ),
-                  count > 0
-                      ? CartItem(price: price, onChangePrice: onChangePrice, count: count)
-                      : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: CointWidget(count: ((price / 20000)).toInt(), size: size * 0.03, space: size * 0.03),
-                      ),
+                  // count > 0
+                  //     ?
+                  CartItem(price: price, onChangePrice: onChangePrice, count: count)
+                      // : Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      //   child: CointWidget(count: ((price / 20000)).toInt(), size: size * 0.03, space: size * 0.03),
+                      // ),
                 ],
               ),
             ),

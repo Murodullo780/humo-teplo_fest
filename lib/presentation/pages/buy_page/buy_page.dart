@@ -95,68 +95,41 @@ class _BuyPageState extends State<BuyPage> {
               child: Container(
                 height: size.height * 0.1,
                 color: ColorConstants.primaryColor,
-                padding: EdgeInsets.only(right: size.width * 0.02),
+                // padding: EdgeInsets.only(right: size.width * 0.02),
                 child: Row(
                   children: [
-                    InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => const CartPage()));
-                        setState(() {});
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                        height: size.height * 0.1,
-                        color: Colors.red,
-                        child: Row(
-                          spacing: 18,
-                          children: [
-                            Text('Перейти в корзину',
-                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: textSize / 2,
-                                    color: Colors.white)),
-                            Icon(
-                              Icons.arrow_forward,
-                              size: textSize / 2,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                      height: size.height * 0.1,
+                      width: size.width * 0.6,
+                      color: Colors.red,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: 18,
+                        children: [
+                          Text('Получить призы',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: textSize / 2,
+                                  color: Colors.white)),
+                          Icon(
+                            Icons.arrow_forward,
+                            size: textSize / 2,
+                            color: Colors.white,
+                          ),
+                        ],
                       ),
                     ),
-                    Spacer(),
+                    // Spacer(),
                     // CointWidget(
                     //   count: ((sum / 20000)).toInt(),
                     //   size: size.height * 0.03,
                     //   space: size.height * 0.03,
                     // ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
-                          spacing: 18,
-                          children: [
-                            Text(
-                              'Перейти на чек',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: textSize / 1.8,
-                                  ),
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              size: textSize / 2,
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
-                        Text(
+                    SizedBox(
+                      width: size.width * 0.4,
+                      child: Center(
+                        child: Text(
                           'Итого: ${NumericServices.formatNumber(sum)}',
                           textAlign: TextAlign.right,
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -165,7 +138,7 @@ class _BuyPageState extends State<BuyPage> {
                                 fontSize: textSize / 1.8,
                               ),
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
