@@ -259,11 +259,15 @@ class _ReceiptPageState extends State<ReceiptPage> {
                     ),
                   ),
                 ),
-                Text('Призы можете взять у прилавки',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize / 1.3)),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                  child: Text('Сфотографируйте чек и предъявите фото на стенде выдачи призов',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize / 1.3)),
+                ),
               ],
             ),
           ),

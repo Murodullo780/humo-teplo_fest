@@ -3,9 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:teplo_fest_humo/core/const/color_constants.dart';
 import 'package:teplo_fest_humo/core/services/numeric_services.dart';
 import 'package:teplo_fest_humo/core/util.dart';
-import 'package:teplo_fest_humo/data/models/priz_model.dart';
 import 'package:teplo_fest_humo/presentation/pages/buy_page/widgets/buy_item.dart';
-import 'package:teplo_fest_humo/presentation/pages/cart_page/cart_page.dart';
 import 'package:teplo_fest_humo/presentation/pages/receipt_page/receipt_page.dart';
 
 class BuyPage extends StatefulWidget {
@@ -23,6 +21,7 @@ class _BuyPageState extends State<BuyPage> {
   }
 
   void minSum(int index) {
+    if(items[index].count < 1) return;
     items[index] = items[index].copyWith(count: items[index].count - 1);
     sum = 0;
     calcSum();
@@ -87,63 +86,63 @@ class _BuyPageState extends State<BuyPage> {
         },
       ),
       bottomNavigationBar: items.where((element) => element.count > 0).isNotEmpty
-          ? InkWell(
-              onTap: () async {
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => const ReceiptPage(once: true)));
-                setState(() {});
-              },
-              child: Container(
-                height: size.height * 0.1,
-                color: ColorConstants.primaryColor,
-                // padding: EdgeInsets.only(right: size.width * 0.02),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                      height: size.height * 0.1,
-                      width: size.width * 0.6,
-                      color: Colors.red,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 18,
-                        children: [
-                          Text('Получить призы',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: textSize / 2,
-                                  color: Colors.white)),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: textSize / 2,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Spacer(),
-                    // CointWidget(
-                    //   count: ((sum / 20000)).toInt(),
-                    //   size: size.height * 0.03,
-                    //   space: size.height * 0.03,
-                    // ),
-                    SizedBox(
-                      width: size.width * 0.4,
-                      child: Center(
-                        child: Text(
-                          'Итого: ${NumericServices.formatNumber(sum)}',
-                          textAlign: TextAlign.right,
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          ? Container(
+            height: size.height * 0.1,
+            color: ColorConstants.primaryColor,
+            // padding: EdgeInsets.only(right: size.width * 0.02),
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () async {
+                    await Navigator.push(context, MaterialPageRoute(builder: (context) => const ReceiptPage(once: true)));
+                    setState(() {});
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                    height: size.height * 0.1,
+                    width: size.width * 0.6,
+                    color: Colors.red,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: 18,
+                      children: [
+                        Text('Получить призы',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: textSize / 1.8,
-                              ),
+                                fontSize: textSize / 2,
+                                color: Colors.white)),
+                        Icon(
+                          Icons.arrow_forward,
+                          size: textSize / 2,
+                          color: Colors.white,
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            )
+                // Spacer(),
+                // CointWidget(
+                //   count: ((sum / 20000)).toInt(),
+                //   size: size.height * 0.03,
+                //   space: size.height * 0.03,
+                // ),
+                SizedBox(
+                  width: size.width * 0.4,
+                  child: Center(
+                    child: Text(
+                      'Итого: ${NumericServices.formatNumber(sum)}',
+                      textAlign: TextAlign.right,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: textSize / 1.8,
+                          ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
           : null,
     );
   }

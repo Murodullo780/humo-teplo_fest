@@ -38,7 +38,7 @@ class BuyItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 child: Image.asset(image, width: size * 0.1)),
             SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.4,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,18 +72,27 @@ class BuyItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 spacing: 4,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(NumericServices.formatNumber(price),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize)),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: CointWidget(count: ((price / 20000)).toInt(), size: size * 0.03, space: size * 0.03),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(NumericServices.formatNumber(price),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize)),
+                      ),
+                    ],
                   ),
                   // count > 0
                   //     ?
                   CartItem(price: price, onChangePrice: onChangePrice, count: count)
-                      // : Padding(
+                      // :
+                      // Padding(
                       //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       //   child: CointWidget(count: ((price / 20000)).toInt(), size: size * 0.03, space: size * 0.03),
                       // ),
