@@ -90,19 +90,19 @@ class _BuyPageState extends State<BuyPage> {
         },
       ),
       bottomNavigationBar: items.where((element) => element.count > 0).isNotEmpty
-          ? Container(
-              height: size.height * 0.1,
-              color: ColorConstants.primaryColor,
-              // padding: EdgeInsets.only(right: size.width * 0.02),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      await Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => const ReceiptPage(once: true)));
-                      setState(() {});
-                    },
-                    child: Container(
+          ? InkWell(
+              onTap: () async {
+                await Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const ReceiptPage(once: true)));
+                setState(() {});
+              },
+              child: Container(
+                height: size.height * 0.1,
+                color: ColorConstants.primaryColor,
+                // padding: EdgeInsets.only(right: size.width * 0.02),
+                child: Row(
+                  children: [
+                    Container(
                       padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
                       height: size.height * 0.1,
                       width: size.width * 0.6,
@@ -122,22 +122,22 @@ class _BuyPageState extends State<BuyPage> {
                         ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.4,
-                    child: Center(
-                      child: Text(
-                        '${TranslationKeys.total.tr()}: ${NumericServices.formatNumber(sum)}',
-                        textAlign: TextAlign.right,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: textSize / 1.8,
-                            ),
+                    SizedBox(
+                      width: size.width * 0.4,
+                      child: Center(
+                        child: Text(
+                          '${TranslationKeys.total.tr()}: ${NumericServices.formatNumber(sum)}',
+                          textAlign: TextAlign.right,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: textSize / 1.8,
+                              ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           : null,

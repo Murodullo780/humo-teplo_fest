@@ -6,6 +6,7 @@ import 'package:teplo_fest_humo/core/enums.dart';
 import 'package:teplo_fest_humo/core/lng.dart';
 import 'package:teplo_fest_humo/core/util.dart';
 import 'package:teplo_fest_humo/presentation/pages/buy_page/buy_page.dart';
+import 'package:teplo_fest_humo/presentation/widget/resizable_widget/resizable_widget.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -55,6 +56,28 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildCenterSvg() {
+    Widget svg(String svg, {double? width}) {
+      return SvgPicture.asset(svg, color: ColorConstants.primaryColor, width: width ?? size * 0.3);
+    }
+
+    return Column(
+      spacing: size * 0.013,
+      children: [
+        svg('assets/svg/teplofest.svg', width: size * 0.4),
+        Text(
+          '×',
+          style: TextStyle(
+            fontSize: size * 0.1,
+            color: ColorConstants.primaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        svg('assets/svg/humo.svg'),
+      ],
     );
   }
 
@@ -124,12 +147,13 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                         _buildSvgContainer(0.26, 'assets/svg/Frame 2.svg'),
                       ],
                     ),
-                    _buildSvgContainer(0.66, 'assets/svg/g16.svg', color: ColorConstants.primaryColor),
+                    _buildCenterSvg(),
                     Row(
                       children: [
                         _buildSvgContainer(0.26, 'assets/svg/Frame 2.svg', quarterTurns: 2),
                       ],
                     ),
+                    SizedBox(height: size * 0.09),
                   ],
                 ),
               ),
@@ -140,11 +164,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
               child: SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.27,
                 child: Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorConstants.primaryColor,
-                    ),
-                    onPressed: () {
+                  child: ResizableWidget(
+                    presentIn2letter: '93',
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -152,13 +174,20 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                         ),
                       );
                     },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: size * 0.014, horizontal: MediaQuery.sizeOf(context).width * 0.13),
-                      child: Text(
-                        TranslationKeys.continuee.tr(),
-                        style: TextStyle(
-                            fontSize: size * 0.04, color: Colors.white, fontWeight: FontWeight.bold),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorConstants.primaryColor,
+                        disabledBackgroundColor: ColorConstants.primaryColor,
+                      ),
+                      onPressed: null,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: size * 0.014, horizontal: MediaQuery.sizeOf(context).width * 0.13),
+                        child: Text(
+                          TranslationKeys.continuee.tr(),
+                          style: TextStyle(
+                              fontSize: size * 0.04, color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),

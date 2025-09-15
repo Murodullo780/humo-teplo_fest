@@ -213,10 +213,10 @@ class _ReceiptPageState extends State<ReceiptPage> {
             // Translated,
             TranslationKeys.receipt.tr(),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: textSize * 1.5,
-              color: ColorConstants.primaryColor,
-            ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: textSize * 1.5,
+                  color: ColorConstants.primaryColor,
+                ),
           ),
         ),
         automaticallyImplyLeading: false,
@@ -228,6 +228,16 @@ class _ReceiptPageState extends State<ReceiptPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: size.width * 0.05, right: size.width * 0.05, bottom: size.height * 0.008),
+                  child: Text(TranslationKeys.takePhotoAndPresent.tr(),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize / 1.3)),
+                ),
                 ClipPath(
                   clipper: TicketClipper(),
                   child: Container(
@@ -236,7 +246,8 @@ class _ReceiptPageState extends State<ReceiptPage> {
                     color: Colors.white,
                     child: Column(
                       children: [
-                        _item(TranslationKeys.registrationDate.tr(), DateServices.formatDateTime(DateTime.now())),
+                        _item(TranslationKeys.registrationDate.tr(),
+                            DateServices.formatDateTime(DateTime.now())),
                         _item(TranslationKeys.receiptNumber.tr(), '123456789'),
                         _item(TranslationKeys.cashier.tr(), 'Киоск 1'),
                         Divider(
@@ -245,21 +256,21 @@ class _ReceiptPageState extends State<ReceiptPage> {
                         _item(TranslationKeys.products.tr(), '${prizList.length}'),
                         ...List.generate(
                             prizList.length,
-                                (index) => Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  top: index == 0
-                                      ? BorderSide.none
-                                      : BorderSide(
-                                    color: Colors.black54,
-                                    width: 1.5,
+                            (index) => Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      top: index == 0
+                                          ? BorderSide.none
+                                          : BorderSide(
+                                              color: Colors.black54,
+                                              width: 1.5,
+                                            ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              margin: const EdgeInsets.symmetric(horizontal: 18.0),
-                              child: _item(prizList[index].name,
-                                  '${prizList[index].count} x ${NumericServices.formatNumber(prizList[index].price)}'),
-                            )),
+                                  margin: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  child: _item(prizList[index].name,
+                                      '${prizList[index].count} x ${NumericServices.formatNumber(prizList[index].price)}'),
+                                )),
                         Divider(
                           thickness: 2,
                         ),
@@ -267,15 +278,6 @@ class _ReceiptPageState extends State<ReceiptPage> {
                       ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.05, top: size.height * 0.008),
-                  child: Text(TranslationKeys.takePhotoAndPresent.tr(),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: textSize / 1.3)),
                 ),
               ],
             ),
@@ -292,8 +294,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
             child: ValueListenableBuilder(
                 valueListenable: backNotifier,
                 builder: (context, value, child) {
-                  return Text(
-                      '${TranslationKeys.returnToMain.tr()} ($value)',
+                  return Text('${TranslationKeys.returnToMain.tr()} ($value)',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
