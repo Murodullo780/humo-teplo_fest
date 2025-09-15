@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:teplo_fest_humo/core/const/color_constants.dart';
+import 'package:teplo_fest_humo/core/enums.dart';
+import 'package:teplo_fest_humo/core/lng.dart';
 import 'package:teplo_fest_humo/core/util.dart';
 import 'package:teplo_fest_humo/presentation/pages/buy_page/buy_page.dart';
 
@@ -146,7 +148,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const BuyPage(),
+                          builder: (context) => BuyPage(lng: locale),
                         ),
                       );
                     },
@@ -154,14 +156,77 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       padding: EdgeInsets.symmetric(
                           vertical: size * 0.014, horizontal: MediaQuery.sizeOf(context).width * 0.13),
                       child: Text(
-                        'Продолжить',
-                        style: TextStyle(fontSize: size * 0.04, color: Colors.white, fontWeight: FontWeight.bold),
+                        TranslationKeys.continuee.tr(),
+                        style: TextStyle(
+                            fontSize: size * 0.04, color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
                 ),
               ),
-            )
+            ),
+            // language buttons
+            Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.27,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(1000),
+                      color: Colors.white38,
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      spacing: 10,
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(Lng.values.length, (index) {
+                        final bool selected = locale == Lng.values[index];
+                        return InkWell(
+                          onTap: () => setState(() => locale = Lng.values[index]),
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 100),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(1000),
+                              color: selected ? ColorConstants.primaryColor : Colors.transparent,
+                            ),
+                            padding: EdgeInsets.only(
+                              left: selected ? 25 : 20,
+                              right: selected ? 30 : 25,
+                              top: 10,
+                              bottom: 10,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              spacing: 10,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  child: SvgPicture.asset(
+                                    'assets/svg/${Lng.values[index].shortName}.svg',
+                                    width: size * 0.025,
+                                  ),
+                                ),
+                                AnimatedDefaultTextStyle(
+                                  duration: const Duration(milliseconds: 300),
+                                  style: TextStyle(
+                                    color: selected ? Colors.white : Colors.black,
+                                    fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                                    fontSize: size * 0.023,
+                                  ),
+                                  child: Text(Lng.values[index].fullName),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

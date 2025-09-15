@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:teplo_fest_humo/core/const/color_constants.dart';
+import 'package:teplo_fest_humo/core/lng.dart';
 import 'package:teplo_fest_humo/core/services/numeric_services.dart';
 import 'package:teplo_fest_humo/core/util.dart';
 import 'package:teplo_fest_humo/data/models/priz_model.dart';
@@ -174,7 +175,6 @@ class _ReceiptPageState extends State<ReceiptPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
-        spacing: 8,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
@@ -210,12 +210,13 @@ class _ReceiptPageState extends State<ReceiptPage> {
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Чек',
+            // Translated,
+            TranslationKeys.receipt.tr(),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: textSize * 1.5,
-                  color: ColorConstants.primaryColor,
-                ),
+              fontWeight: FontWeight.bold,
+              fontSize: textSize * 1.5,
+              color: ColorConstants.primaryColor,
+            ),
           ),
         ),
         automaticallyImplyLeading: false,
@@ -225,7 +226,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              spacing: 24,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ClipPath(
                   clipper: TicketClipper(),
@@ -235,42 +236,41 @@ class _ReceiptPageState extends State<ReceiptPage> {
                     color: Colors.white,
                     child: Column(
                       children: [
-                        _item('Дата регистрации', DateServices.formatDateTime(DateTime.now())),
-                        _item('Номер чека', '123456789'),
-                        _item('Кассир', 'Киоск 1'),
+                        _item(TranslationKeys.registrationDate.tr(), DateServices.formatDateTime(DateTime.now())),
+                        _item(TranslationKeys.receiptNumber.tr(), '123456789'),
+                        _item(TranslationKeys.cashier.tr(), 'Киоск 1'),
                         Divider(
                           thickness: 2,
                         ),
-                        _item('Товары', '${prizList.length}'),
+                        _item(TranslationKeys.products.tr(), '${prizList.length}'),
                         ...List.generate(
                             prizList.length,
-                            (index) => Container(
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      top: index == 0
-                                          ? BorderSide.none
-                                          : BorderSide(
-                                              color: Colors.black54,
-                                              width: 1.5,
-                                            ),
-                                    ),
+                                (index) => Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  top: index == 0
+                                      ? BorderSide.none
+                                      : BorderSide(
+                                    color: Colors.black54,
+                                    width: 1.5,
                                   ),
-                                  // padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                                  margin: const EdgeInsets.symmetric(horizontal: 18.0),
-                                  child: _item(prizList[index].name,
-                                      '${prizList[index].count} x ${NumericServices.formatNumber(prizList[index].price)}'),
-                                )),
+                                ),
+                              ),
+                              margin: const EdgeInsets.symmetric(horizontal: 18.0),
+                              child: _item(prizList[index].name,
+                                  '${prizList[index].count} x ${NumericServices.formatNumber(prizList[index].price)}'),
+                            )),
                         Divider(
                           thickness: 2,
                         ),
-                        _item('Итого', NumericServices.formatNumber(total.toInt())),
+                        _item(TranslationKeys.total.tr(), NumericServices.formatNumber(total.toInt())),
                       ],
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                  child: Text('Сфотографируйте чек и предъявите фото на стенде выдачи призов',
+                  padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.05, top: size.height * 0.008),
+                  child: Text(TranslationKeys.takePhotoAndPresent.tr(),
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -292,7 +292,8 @@ class _ReceiptPageState extends State<ReceiptPage> {
             child: ValueListenableBuilder(
                 valueListenable: backNotifier,
                 builder: (context, value, child) {
-                  return Text('Вернуться на главную ($value)',
+                  return Text(
+                      '${TranslationKeys.returnToMain.tr()} ($value)',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -308,17 +309,13 @@ class _ReceiptPageState extends State<ReceiptPage> {
 class TicketClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    // Увеличиваем количество сегментов для более мелкого зигзага
     int segments = 120;
     double segmentWidth = size.width / segments;
-    // Уменьшаем амплитуду зубцов
     double amplitude = 5.0;
     var path = Path();
 
-    // Начинаем с верхнего левого угла
     path.moveTo(0, 0);
 
-    // Верхняя сторона с зигзагом (слева направо)
     for (int i = 0; i < segments; i++) {
       double startX = segmentWidth * i;
       double midX = startX + segmentWidth / 2;
@@ -331,10 +328,8 @@ class TicketClipper extends CustomClipper<Path> {
       path.lineTo(nextX, 0);
     }
 
-    // Правая сторона: идём вниз до нижнего правого угла
     path.lineTo(size.width, size.height);
 
-    // Нижняя сторона с зигзагом (справа налево)
     for (int i = 0; i < segments; i++) {
       double startX = size.width - segmentWidth * i;
       double midX = startX - segmentWidth / 2;
@@ -347,7 +342,6 @@ class TicketClipper extends CustomClipper<Path> {
       path.lineTo(nextX, size.height);
     }
 
-    // Левая сторона: возвращаемся в верхний левый угол
     path.lineTo(0, 0);
     path.close();
 

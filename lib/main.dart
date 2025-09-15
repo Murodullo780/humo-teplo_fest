@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:teplo_fest_humo/presentation/pages/buy_page/buy_page.dart';
 import 'package:teplo_fest_humo/presentation/pages/splash_page/splash_page.dart';
 
+import 'core/enums.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/splash_page': (context) => const SplashPage(),
-        '/buy_page': (context) => const BuyPage(),
+        '/buy_page': (context) => const BuyPage(lng: Lng.uz),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff213774)),
