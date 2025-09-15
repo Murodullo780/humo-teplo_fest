@@ -56,7 +56,7 @@ class _BuyPageState extends State<BuyPage> {
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SvgPicture.asset(
-            'assets/svg/g16 (1).svg',
+            'assets/svg/Frame 5.svg',
             color: ColorConstants.primaryColor,
           ),
         ),

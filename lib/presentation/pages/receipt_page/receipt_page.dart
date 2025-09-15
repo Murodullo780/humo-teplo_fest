@@ -17,7 +17,6 @@ class ReceiptPage extends StatefulWidget {
 }
 
 class _ReceiptPageState extends State<ReceiptPage> {
-
   List<PrizModel> itemsClone = [
     PrizModel(name: "Soft Yostiq", price: 25000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Lux Yostiq", price: 35000, image: "assets/images/yostiq.jpg", count: 0),
@@ -86,30 +85,36 @@ class _ReceiptPageState extends State<ReceiptPage> {
     PrizModel(name: "Eco-Friendly Comfort Yostiq", price: 36000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Soft Plush Comfort Yostiq", price: 24000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Travel Comfort Touch Yostiq", price: 20000, image: "assets/images/yostiq.jpg", count: 0),
-    PrizModel(name: "Premium Comfort Touch Yostiq", price: 54000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Premium Comfort Touch Yostiq", price: 54000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Silk Touch Comfort Yostiq", price: 41000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Anti-Slip Comfort Yostiq", price: 33000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Cool Touch Comfort Yostiq", price: 48000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Bamboo Comfort Touch Yostiq", price: 35000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Firm Comfort Touch Yostiq", price: 37000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Lux Plush Comfort Yostiq", price: 49000, image: "assets/images/yostiq.jpg", count: 0),
-    PrizModel(name: "Organic Comfort Touch Yostiq", price: 40000, image: "assets/images/yostiq.jpg", count: 0),
-    PrizModel(name: "Memory Support Comfort Yostiq", price: 51000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Organic Comfort Touch Yostiq", price: 40000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Memory Support Comfort Yostiq", price: 51000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Soft Silk Comfort Yostiq", price: 29000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Cool Comfort Touch Yostiq", price: 47000, image: "assets/images/yostiq.jpg", count: 0),
-    PrizModel(name: "Standard Comfort Touch Yostiq", price: 23000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Standard Comfort Touch Yostiq", price: 23000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Deluxe Comfort Touch Yostiq", price: 50000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(
         name: "Microfiber Comfort Touch Yostiq", price: 31000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Latex Comfort Touch Yostiq", price: 52000, image: "assets/images/yostiq.jpg", count: 0),
-    PrizModel(name: "Feather Comfort Touch Yostiq", price: 34000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Feather Comfort Touch Yostiq", price: 34000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Down Comfort Touch Yostiq", price: 48000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(
         name: "Firm Support Comfort Touch Yostiq", price: 36000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Soft Comfort Touch Yostiq", price: 27000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(
         name: "Cool Breeze Comfort Touch Yostiq", price: 46000, image: "assets/images/yostiq.jpg", count: 0),
-    PrizModel(name: "Natural Comfort Touch Yostiq", price: 39000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Natural Comfort Touch Yostiq", price: 39000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(
         name: "Orthopedic Comfort Touch Yostiq", price: 47000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Mini Comfort Touch Yostiq", price: 19000, image: "assets/images/yostiq.jpg", count: 0),
@@ -119,7 +124,8 @@ class _ReceiptPageState extends State<ReceiptPage> {
     PrizModel(
         name: "Soft Plush Comfort Touch Yostiq", price: 25000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Travel Comfort Touch Yostiq", price: 21000, image: "assets/images/yostiq.jpg", count: 0),
-    PrizModel(name: "Premium Comfort Touch Yostiq", price: 55000, image: "assets/images/yostiq.jpg", count: 0),
+    PrizModel(
+        name: "Premium Comfort Touch Yostiq", price: 55000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(name: "Silk Touch Comfort Yostiq", price: 42000, image: "assets/images/yostiq.jpg", count: 0),
     PrizModel(
         name: "Anti-Slip Comfort Touch Yostiq", price: 34000, image: "assets/images/yostiq.jpg", count: 0),
@@ -155,10 +161,12 @@ class _ReceiptPageState extends State<ReceiptPage> {
 
   @override
   void initState() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _back();
-    });
-    total = prizList.fold(0, (previousValue, element) => previousValue + element.price * element.count);
+    if (true) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        _back();
+      });
+      total = prizList.fold(0, (previousValue, element) => previousValue + element.price * element.count);
+    }
     super.initState();
   }
 
@@ -242,12 +250,13 @@ class _ReceiptPageState extends State<ReceiptPage> {
                                       top: index == 0
                                           ? BorderSide.none
                                           : BorderSide(
-                                              color: Colors.black,
-                                              width: 2,
+                                              color: Colors.black54,
+                                              width: 1.5,
                                             ),
                                     ),
                                   ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  // padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                  margin: const EdgeInsets.symmetric(horizontal: 18.0),
                                   child: _item(prizList[index].name,
                                       '${prizList[index].count} x ${NumericServices.formatNumber(prizList[index].price)}'),
                                 )),
